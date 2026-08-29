@@ -29,9 +29,9 @@ const ShopInbox = () => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [activeStatus, setActiveStatus] = useState(false);
 
-  // Receive message
+  // RECEIVE MESSAGE
   useEffect(() => {
-    socketId.on("getMessage", (data) => {
+    const handleMessage = (data) => {
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
@@ -39,14 +39,16 @@ const ShopInbox = () => {
         conversationId: data.conversationId,
         createdAt: Date.now(),
       });
-    });
+    };
+
+    socketId.on("getMessage", handleMessage);
 
     return () => {
-      socketId.off("getMessage");
+      socketId.off("getMessage", handleMessage);
     };
   }, []);
 
-  // Refresh messages when new message arrives
+  // REFRESH MESSAGES WHEN NEW MESSAGE ARRIVES
   useEffect(() => {
     if (
       !arrivalMessage ||
@@ -59,9 +61,12 @@ const ShopInbox = () => {
 
     const refreshMessages = async () => {
       try {
-        const res = await axios.get(`${server}/user/user-info/${userId}`, {
-          withCredentials: true,
-        });
+        const res = await axios.get(
+          `${server}/message/get-all-messages/${currentChat._id}`,
+          {
+            withCredentials: true,
+          },
+        );
 
         setMessages(res.data.messages || []);
       } catch (error) {
@@ -72,7 +77,7 @@ const ShopInbox = () => {
     refreshMessages();
   }, [arrivalMessage, currentChat]);
 
-  // Get conversations
+  // GET CONVERSATIONS
   useEffect(() => {
     if (!seller?._id) return;
 
@@ -107,7 +112,7 @@ const ShopInbox = () => {
     getConversation();
   }, [seller?._id]);
 
-  // Register seller with socket
+  // REGISTER SELLER WITH SOCKET
   useEffect(() => {
     if (!seller?._id) return;
 
@@ -132,7 +137,7 @@ const ShopInbox = () => {
     };
   }, [seller?._id]);
 
-  // Check active user
+  // CHECK ACTIVE USER
   useEffect(() => {
     if (!currentChat || !seller?._id) return;
 
@@ -147,6 +152,7 @@ const ShopInbox = () => {
     );
   }, [currentChat, onlineUsers, seller?._id]);
 
+  // CHECK ONLINE USER
   const onlineCheck = (chat) => {
     const chatMember = chat.members.find(
       (member) => String(member) !== String(seller?._id),
@@ -157,7 +163,7 @@ const ShopInbox = () => {
     );
   };
 
-  // Get messages
+  // GET MESSAGES
   useEffect(() => {
     if (!currentChat?._id) return;
 
@@ -179,7 +185,7 @@ const ShopInbox = () => {
     getMessage();
   }, [currentChat]);
 
-  // Send message
+  // SEND MESSAGE
   const sendMessageHandler = async (e) => {
     e.preventDefault();
 
@@ -216,7 +222,7 @@ const ShopInbox = () => {
         senderId: seller._id,
         receiverId,
         text: messageText,
-        images: res.data.message.images,
+        images: res.data.message.images || [],
         conversationId: currentChat._id,
       });
 
@@ -225,7 +231,7 @@ const ShopInbox = () => {
         res.data.message,
       ]);
 
-      await updateLastMessage(messageText);
+      await updateLastMessage(messageText || "Image");
 
       setSelectedImages([]);
     } catch (error) {
@@ -237,7 +243,7 @@ const ShopInbox = () => {
     }
   };
 
-  // Update last message
+  // UPDATE LAST MESSAGE
   const updateLastMessage = async (messageText) => {
     socketId.emit("updateLastMessage", {
       lastMessage: messageText,
@@ -312,11 +318,10 @@ const ShopInbox = () => {
             flex flex-col
           "
         >
-          {/* ================= CONVERSATION LIST ================= */}
+          {/* CONVERSATION LIST */}
 
           {!open && (
             <>
-              {/* Header */}
               <div
                 className="
                   shrink-0
@@ -370,7 +375,6 @@ const ShopInbox = () => {
                 </div>
               </div>
 
-              {/* Conversation Scroll */}
               <div
                 className="
                   flex-1
@@ -384,7 +388,7 @@ const ShopInbox = () => {
                   sm:py-4
                 "
               >
-                {conversations &&
+                {conversations && conversations.length > 0 ? (
                   conversations.map((item, index) => (
                     <MessageList
                       data={item}
@@ -397,12 +401,19 @@ const ShopInbox = () => {
                       online={onlineCheck(item)}
                       setActiveStatus={setActiveStatus}
                     />
-                  ))}
+                  ))
+                ) : (
+                  <div className="flex items-center justify-center h-full min-h-[250px]">
+                    <p className="text-gray-400 text-sm">
+                      No conversations yet.
+                    </p>
+                  </div>
+                )}
               </div>
             </>
           )}
 
-          {/* ================= OPEN CHAT ================= */}
+          {/* OPEN CHAT */}
 
           {open && (
             <SellerInbox
@@ -446,13 +457,18 @@ const MessageList = ({
     setOpen(true);
   };
 
+  // GET CUSTOMER INFORMATION
   useEffect(() => {
-    const userId = data.members.find((user) => String(user) !== String(me));
+    const userId = data.members.find(
+      (member) => String(member) !== String(me),
+    );
+
+    if (!userId) return;
 
     const getUser = async () => {
       try {
         const res = await axios.get(
-          `${server}/message/get-all-messages/${currentChat._id}`,
+          `${server}/user/user-info/${userId}`,
           {
             withCredentials: true,
           },
@@ -464,9 +480,7 @@ const MessageList = ({
       }
     };
 
-    if (userId) {
-      getUser();
-    }
+    getUser();
   }, [me, data]);
 
   return (
@@ -498,7 +512,8 @@ const MessageList = ({
         setActiveStatus(online);
       }}
     >
-      {/* Avatar */}
+      {/* AVATAR */}
+
       <div className="relative flex-shrink-0">
         <img
           src={`${backend_url}${user?.avatar}`}
@@ -534,7 +549,8 @@ const MessageList = ({
         />
       </div>
 
-      {/* User Info */}
+      {/* USER INFO */}
+
       <div className="min-w-0 flex-1">
         <div className="flex items-center justify-between gap-2">
           <h1
@@ -584,7 +600,8 @@ const MessageList = ({
         </p>
       </div>
 
-      {/* Arrow */}
+      {/* ARROW */}
+
       <div className="ml-1 sm:ml-2 flex-shrink-0">
         <AiOutlineArrowRight
           size={16}
@@ -616,7 +633,7 @@ const SellerInbox = ({
 
   const messagesContainerRef = useRef(null);
 
-  /* Close inbox */
+  // CLOSE INBOX
   const closeInbox = () => {
     setOpen(false);
 
@@ -625,7 +642,7 @@ const SellerInbox = ({
     });
   };
 
-  /* Auto scroll */
+  // AUTO SCROLL
   useEffect(() => {
     const container = messagesContainerRef.current;
 
@@ -648,7 +665,7 @@ const SellerInbox = ({
         overflow-hidden
       "
     >
-      {/* ================= CHAT HEADER ================= */}
+      {/* CHAT HEADER */}
 
       <div
         className="
@@ -666,7 +683,8 @@ const SellerInbox = ({
         "
       >
         <div className="flex items-center justify-between gap-2">
-          {/* User */}
+          {/* USER */}
+
           <div className="flex items-center min-w-0">
             <div className="relative flex-shrink-0">
               <img
@@ -730,7 +748,9 @@ const SellerInbox = ({
                 "
               >
                 {activeStatus ? (
-                  <span className="text-[#077f9c] font-[500]">Active Now</span>
+                  <span className="text-[#077f9c] font-[500]">
+                    Active Now
+                  </span>
                 ) : (
                   <span className="text-gray-400">Offline</span>
                 )}
@@ -738,7 +758,8 @@ const SellerInbox = ({
             </div>
           </div>
 
-          {/* Close */}
+          {/* CLOSE */}
+
           <button
             type="button"
             onClick={closeInbox}
@@ -766,22 +787,10 @@ const SellerInbox = ({
               className="rotate-180 sm:w-[20px] sm:h-[20px]"
             />
           </button>
-
-          {/* Hidden image input */}
-          <input
-            id="shop-message-images"
-            type="file"
-            accept="image/*"
-            multiple
-            className="hidden"
-            onChange={(event) =>
-              setSelectedImages(Array.from(event.target.files || []))
-            }
-          />
         </div>
       </div>
 
-      {/* ================= MESSAGES ================= */}
+      {/* MESSAGES */}
 
       <div
         ref={messagesContainerRef}
@@ -802,110 +811,118 @@ const SellerInbox = ({
       >
         <div className="max-w-[900px] mx-auto">
           {messages && messages.length > 0 ? (
-            messages.map((item, index) => (
-              <div
-                key={item._id || index}
-                className={`
-                  flex
-                  w-full
-                  my-2
-                  sm:my-3
-                  ${item.sender === sellerId ? "justify-end" : "justify-start"}
-                `}
-              >
-                {/* Receiver Avatar */}
-                {item.sender !== sellerId && (
-                  <img
-                    src={`${backend_url}${userData?.avatar}`}
-                    className="
-                      w-[28px]
-                      h-[28px]
-                      sm:w-[34px]
-                      sm:h-[34px]
-                      md:w-[38px]
-                      md:h-[38px]
-                      rounded-full
-                      mr-1.5
-                      sm:mr-2
-                      md:mr-3
-                      object-cover
-                      flex-shrink-0
-                    "
-                    alt=""
-                  />
-                )}
+            messages.map((item, index) => {
+              const isMine = String(item.sender) === String(sellerId);
 
+              return (
                 <div
+                  key={item._id || index}
                   className={`
-                    max-w-[82%]
-                    sm:max-w-[72%]
-                    md:max-w-[65%]
-                    min-w-0
+                    flex
+                    w-full
+                    my-2
+                    sm:my-3
+                    ${isMine ? "justify-end" : "justify-start"}
                   `}
                 >
-                  {/* Message Bubble */}
+                  {/* RECEIVER AVATAR */}
+
+                  {!isMine && (
+                    <img
+                      src={`${backend_url}${userData?.avatar}`}
+                      className="
+                        w-[28px]
+                        h-[28px]
+                        sm:w-[34px]
+                        sm:h-[34px]
+                        md:w-[38px]
+                        md:h-[38px]
+                        rounded-full
+                        mr-1.5
+                        sm:mr-2
+                        md:mr-3
+                        object-cover
+                        flex-shrink-0
+                      "
+                      alt=""
+                    />
+                  )}
+
                   <div
-                    className={`
-                      px-3
-                      sm:px-4
-                      py-2
-                      sm:py-2.5
-                      md:py-3
-                      rounded-2xl
-                      text-white
-                      text-[13px]
-                      sm:text-[14px]
-                      md:text-[15px]
-                      leading-5
-                      sm:leading-6
-                      shadow-sm
-                      break-words
-                      overflow-hidden
-                      ${
-                        item.sender === sellerId
-                          ? "bg-[#111] rounded-br-md"
-                          : "bg-[#077f9c] rounded-bl-md"
-                      }
-                    `}
+                    className="
+                      max-w-[82%]
+                      sm:max-w-[72%]
+                      md:max-w-[65%]
+                      min-w-0
+                    "
                   >
-                    {item.text && <p>{item.text}</p>}
+                    {/* MESSAGE BUBBLE */}
 
-                    {/* Images */}
-                    {item.images?.map((image) => (
-                      <img
-                        key={image}
-                        src={`${backend_url}${image}`}
-                        alt="Message attachment"
-                        className="
-                          mt-2
-                          max-h-[180px]
-                          sm:max-h-[220px]
-                          max-w-full
-                          sm:max-w-[260px]
-                          rounded-lg
-                          object-cover
-                        "
-                      />
-                    ))}
+                    <div
+                      className={`
+                        px-3
+                        sm:px-4
+                        py-2
+                        sm:py-2.5
+                        md:py-3
+                        rounded-2xl
+                        text-white
+                        text-[13px]
+                        sm:text-[14px]
+                        md:text-[15px]
+                        leading-5
+                        sm:leading-6
+                        shadow-sm
+                        break-words
+                        overflow-hidden
+                        ${
+                          isMine
+                            ? "bg-[#111] rounded-br-md"
+                            : "bg-[#077f9c] rounded-bl-md"
+                        }
+                      `}
+                    >
+                      {item.text && <p>{item.text}</p>}
+
+                      {/* IMAGES */}
+
+                      {item.images?.map((image) => (
+                        <img
+                          key={image}
+                          src={`${backend_url}${image}`}
+                          alt="Message attachment"
+                          className="
+                            mt-2
+                            max-h-[180px]
+                            sm:max-h-[220px]
+                            max-w-full
+                            sm:max-w-[260px]
+                            rounded-lg
+                            object-cover
+                          "
+                        />
+                      ))}
+                    </div>
+
+                    {/* TIME */}
+
+                    <p
+                      className={`
+                        text-[9px]
+                        sm:text-[10px]
+                        md:text-[11px]
+                        text-gray-400
+                        pt-1
+                        px-1
+                        ${isMine ? "text-right" : "text-left"}
+                      `}
+                    >
+                      {format(item.createdAt || item.createAt)}
+                    </p>
                   </div>
-
-                  {/* Time */}
-                  <p
-                    className={`
-                      text-[9px]
-                      sm:text-[10px]
-                      md:text-[11px]
-                      text-gray-400
-                      pt-1
-                      px-1
-                      ${item.sender === sellerId ? "text-right" : "text-left"}
-                    `}
-                  >
-                    {format(item.createdAt || item.createAt)}
-                  </p>
                 </div>
-              </div>
-            ))
+              );
+            })
           ) : (
             <div
               className="
@@ -933,7 +950,10 @@ const SellerInbox = ({
                     justify-center
                   "
                 >
-                  <TfiGallery size={21} className="text-[#077f9c]" />
+                  <TfiGallery
+                    size={21}
+                    className="text-[#077f9c]"
+                  />
                 </div>
 
                 <h3
@@ -963,7 +983,7 @@ const SellerInbox = ({
         </div>
       </div>
 
-      {/* ================= SEND MESSAGE ================= */}
+      {/* SEND MESSAGE */}
 
       <div
         className="
@@ -980,7 +1000,8 @@ const SellerInbox = ({
           md:py-4
         "
       >
-        {/* Selected Images */}
+        {/* SELECTED IMAGES */}
+
         {selectedImages.length > 0 && (
           <div
             className="
@@ -1017,11 +1038,12 @@ const SellerInbox = ({
           "
           onSubmit={sendMessageHandler}
         >
-          {/* Gallery */}
+          {/* GALLERY */}
+
           <button
             type="button"
             onClick={() =>
-              document.getElementById("shop-message-images").click()
+              document.getElementById("shop-message-images")?.click()
             }
             className="
               w-[38px]
@@ -1051,7 +1073,21 @@ const SellerInbox = ({
             />
           </button>
 
-          {/* Input */}
+          <input
+            id="shop-message-images"
+            type="file"
+            accept="image/*"
+            multiple
+            className="hidden"
+            onChange={(event) =>
+              setSelectedImages(
+                Array.from(event.target.files || []),
+              )
+            }
+          />
+
+          {/* INPUT */}
+
           <div className="flex-1 relative min-w-0">
             <input
               type="text"
@@ -1085,7 +1121,12 @@ const SellerInbox = ({
               "
             />
 
-            <input type="submit" value="Send" className="hidden" id="send" />
+            <input
+              type="submit"
+              value="Send"
+              className="hidden"
+              id="send"
+            />
 
             <label
               htmlFor="send"
@@ -1127,3 +1168,4 @@ const SellerInbox = ({
 };
 
 export default ShopInbox;
+
