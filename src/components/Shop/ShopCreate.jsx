@@ -18,7 +18,7 @@ const ShopCreate = () => {
   const [avatar, setAvatar] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
@@ -26,45 +26,49 @@ const ShopCreate = () => {
   };
 
   const handleSubmit = async (e) => {
-      e.preventDefault();
-      setLoading(true);
-  
-      try {
-        const config = {
-          headers: { "Content-Type": "multipart/form-data" },
-        };
-  
-        const newForm = new FormData();
-        newForm.append("file", avatar);
-        newForm.append("name", name);
-        newForm.append("email", email);
-        newForm.append("address", address);
-        newForm.append("phoneNumber", phoneNumber);
-        newForm.append("zipCode", zipCode);
-        newForm.append("password", password);
-  
-        const res = await axios.post(
-          `${server}/shop/create-shop`,
-          newForm,
-          config
-        );
-        toast.success(res.data.message);
-        setName("");
-        setPhoneNumber("");
-        setAddress("");
-        setEmail("");
-        setZipCode("");
-        setPassword("");
-        setAvatar();
+    e.preventDefault();
+    setLoading(true);
 
-        navigate("/shop-login");
-  
-      } catch (error) {
-        toast.error(error.response?.data?.message || error.message || "Something went wrong");
-      } finally {
-        setLoading(false);
-      }
-    };
+    try {
+      const config = {
+        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
+      };
+
+      const newForm = new FormData();
+      newForm.append("file", avatar);
+      newForm.append("name", name);
+      newForm.append("email", email);
+      newForm.append("address", address);
+      newForm.append("phoneNumber", phoneNumber);
+      newForm.append("zipCode", zipCode);
+      newForm.append("password", password);
+
+      const res = await axios.post(
+        `${server}/shop/create-shop`,
+        newForm,
+        config,
+      );
+      toast.success(res.data.message);
+      setName("");
+      setPhoneNumber("");
+      setAddress("");
+      setEmail("");
+      setZipCode("");
+      setPassword("");
+      setAvatar();
+
+      navigate("/shop-login");
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          "Something went wrong",
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
