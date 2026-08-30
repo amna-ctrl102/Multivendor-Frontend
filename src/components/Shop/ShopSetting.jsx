@@ -1,6 +1,6 @@
 import { AiOutlineCamera } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { backend_url, server } from "../../server";
+import { server } from "../../server";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -88,7 +88,7 @@ const ShopSetting = () => {
             <div className="flex flex-col items-center mb-5">
               <div className="relative">
                 <img
-                  src={`${backend_url}${seller?.avatar}`}
+                  src={seller?.avatar || ""}
                   alt="profileImage"
                   className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-[#077f9c] hover:border-[#066f88] shadow-[0_4px_15px_rgba(15,23,42,0.12)]"
                 />

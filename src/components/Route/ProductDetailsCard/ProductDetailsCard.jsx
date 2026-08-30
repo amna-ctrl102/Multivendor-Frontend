@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { backend_url, server } from "../../../server";
+import { server } from "../../../server";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { addToCart } from "../../../redux/actions/cart";
@@ -169,7 +169,7 @@ const ProductDetailsCard = ({ setOpen, data }) => {
                 "
                 >
                   <img
-                    src={`${backend_url}${data.images?.[0]}`}
+                    src={data.images?.[0]}
                     alt={data.name}
                     className="
                       max-h-[380px]
@@ -196,7 +196,7 @@ const ProductDetailsCard = ({ setOpen, data }) => {
                   "
                 >
                   <img
-                    src={`${backend_url}${data?.shop?.avatar}`}
+                    src={data?.shop?.avatar}
                     alt="shopImage"
                     className="
                       h-[52px]

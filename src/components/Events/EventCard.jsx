@@ -1,6 +1,5 @@
 import React from "react";
 import CountDown from "./CountDown";
-import { backend_url } from "../../server";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { addToCart } from "../../redux/actions/cart";
@@ -14,7 +13,7 @@ const EventCard = ({ active, data }) => {
   }
 
   const imageUrl = data.images?.[0]
-    ? `${backend_url}${data.images[0]}`
+    ? data.images[0]
     : "/default-event.png";
 
   const addToCartHandler = (id) => {

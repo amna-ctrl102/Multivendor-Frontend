@@ -14,7 +14,6 @@ import { CgProfile } from "react-icons/cg";
 import DropDown from "./DropDown";
 import Navbar from "./Navbar";
 import { useSelector } from "react-redux";
-import { backend_url } from "../../server";
 import Cart from "../Cart/Cart";
 import Wishlist from "../Wishlist/Wishlist";
 import { RxCross1 } from "react-icons/rx";
@@ -96,7 +95,7 @@ const Header = ({ activeHeading }) => {
                       <Link key={i._id} to={`/product/${i._id}`}>
                         <div className="w-full flex items-start py-2">
                           <img
-                            src={`${backend_url}${i.images && i.images[0]}`}
+                            src={i.images && i.images[0]}
                             alt="productImage"
                             className="w-[40px] h-[40px] mr-[10px]"
                           />
@@ -190,7 +189,7 @@ const Header = ({ activeHeading }) => {
                 {isAuthenticated && user?.avatar ? (
                   <Link to="/profile">
                     <img
-                      src={`${backend_url}${user.avatar}`}
+                      src={user.avatar || ""}
                       alt="profileImage"
                       className="w-[35px] h-[35px] rounded-full object-cover"
                     />
@@ -288,7 +287,7 @@ const Header = ({ activeHeading }) => {
                         <Link key={i._id} to={`/product/${i._id}`}>
                           <div className="w-full flex items-start py-2">
                             <img
-                              src={`${backend_url}${i.images && i.images[0]}`}
+                              src={i.images && i.images[0]}
                               alt="productImage"
                               className="w-[40px] h-[40px] mr-[10px]"
                             />
@@ -326,7 +325,7 @@ const Header = ({ activeHeading }) => {
                 <div>
                   <Link to="/profile">
                     <img
-                      src={`${backend_url}${user.avatar}`}
+                      src={user.avatar || ""}
                       alt="profileImage"
                       className="w-[60px] h-[60px] rounded-full object-cover border-[2px] border-[#a30563]"
                     />

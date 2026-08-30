@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { backend_url, server } from "../../server";
+import { server } from "../../server";
 import {
   AiOutlineArrowRight,
   AiOutlineCamera,
@@ -13,7 +13,7 @@ import { Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   deleteUserAddress,
-  loadSeller,
+  loadUser,
   updateUserAddress,
   updateUserInformation,
 } from "../../redux/actions/user";
@@ -63,7 +63,7 @@ const ProfileContent = ({ active }) => {
         withCredentials: true,
       });
       console.log(res.data);
-      dispatch(loadSeller());
+      dispatch(loadUser());
       toast.success("Avatar Updated Successfully!");
     } catch (error) {
       toast.error(
@@ -81,7 +81,7 @@ const ProfileContent = ({ active }) => {
           <div className="flex justify-center w-full">
             <div className="relative">
               <img
-                src={`${backend_url}${user?.avatar}`}
+                src={user?.avatar || " "}
                 alt="profileImage"
                 className="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover border-[3px] border-[#a30563]"
               />

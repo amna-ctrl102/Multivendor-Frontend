@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProductsShop } from "../../redux/actions/product";
 import { getAllEventsShop } from "../../redux/actions/event";
-import { backend_url, server } from "../../server";
+import { server } from "../../server";
 import {
   addToWishlist,
   removeFromWishlist,
@@ -133,7 +133,7 @@ const ProductDetails = ({ data }) => {
               <div className="w-full 800px:w-[40%]">
                 <div className="w-full border border-[#a30563] rounded-lg p-3 mt-3">
                   <img
-                    src={`${backend_url}${data && data.images[select]}`}
+                    src={data && data.images[select]}
                     alt="Product"
                     className="w-full h-[250px] sm:h-[300px] 800px:h-[330px] object-contain"
                   />
@@ -152,7 +152,7 @@ const ProductDetails = ({ data }) => {
                         }`}
                       >
                         <img
-                          src={`${backend_url}${item}`}
+                          src={item}
                           alt=""
                           className="w-[80px] h-[80px] 800px:w-[80px] 800px:h-[80px] object-contain rounded-lg"
                         />
@@ -234,7 +234,7 @@ const ProductDetails = ({ data }) => {
                   <Link to={`/shop/preview/${data?.shop._id}`}>
                     <div className="flex items-center">
                       <img
-                        src={`${backend_url}${data?.shop?.avatar}`}
+                        src={data?.shop?.avatar || ""}
                         alt="ShopLogo"
                         className="w-[60px] h-[60px] rounded-full mr-3 border-2 border-[#a30563]"
                       />
@@ -337,7 +337,7 @@ const ProductDetailsInfo = ({
             reviews.map((item, index) => (
               <div className="w-full flex my-2">
                 <img
-                  src={`${backend_url}${item.user.avatar}`}
+                  src={item.user.avatar || ""}
                   alt=""
                   className="w-[50px] h-[50px] rounded-full object-cover"
                 />
@@ -363,7 +363,7 @@ const ProductDetailsInfo = ({
             <Link to={`/shop/preview/${data?.shop._id}`}>
               <div className="flex items-center">
                 <img
-                  src={`${backend_url}${data.shop?.avatar}`}
+                  src={data.shop?.avatar || ""}
                   className="w-[60px] h-[60px] rounded-full border-2 border-[#a30563]"
                   alt="ShopLogo"
                 />

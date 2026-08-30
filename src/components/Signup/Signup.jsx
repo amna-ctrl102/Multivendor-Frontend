@@ -29,6 +29,7 @@ const Signup = () => {
     try {
       const config = {
         headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
       };
 
       const newForm = new FormData();
@@ -41,13 +42,12 @@ const Signup = () => {
         `${server}/user/create-user`,
         newForm,
         config,
-        { withCredentials: true },
       );
       toast.success(res.data.message);
       setName("");
       setEmail("");
       setPassword("");
-      setAvatar();
+      setAvatar(null);
 
       navigate("/login");
 

@@ -10,7 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import styles from "../../styles/styles";
-import { backend_url, server } from "../../server";
+import { server } from "../../server";
 import { getAllOrdersOfUser } from "../../redux/actions/order";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
@@ -242,7 +242,7 @@ const UserOrderDetails = () => {
                 {/* Product Image */}
                 <div className="w-[80px] h-[80px] rounded-lg overflow-hidden bg-white border border-gray-200 flex-shrink-0">
                   <img
-                    src={`${backend_url}${item?.images[0]}`}
+                    src={item?.images[0]}
                     alt={item?.name}
                     className="w-full h-full object-cover"
                   />
@@ -325,7 +325,7 @@ const UserOrderDetails = () => {
                   {/* Product Image */}
                   <div className="w-[75px] h-[75px] md:w-[85px] md:h-[85px] rounded-xl overflow-hidden bg-white border border-gray-200 flex-shrink-0">
                     <img
-                      src={`${backend_url}${selectedItem?.images[0]}`}
+                      src={selectedItem?.images[0]}
                       alt={selectedItem?.name}
                       className="w-full h-full object-cover"
                     />

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { backend_url, server } from "../server";
+import { server } from "../server";
 import { TfiGallery } from "react-icons/tfi";
 import { AiOutlineArrowRight, AiOutlineSend } from "react-icons/ai";
 import { format } from "timeago.js";
@@ -418,7 +418,7 @@ const MessageList = ({
 
       <div className="relative flex-shrink-0">
         <img
-          src={`${backend_url}${shop?.avatar}`}
+          src={shop?.avatar}
           alt=""
           className="
             w-[46px] h-[46px]
@@ -582,7 +582,7 @@ const SellerInbox = ({
 
             <div className="relative flex-shrink-0">
               <img
-                src={`${backend_url}${userData?.avatar}`}
+                src={userData?.avatar}
                 alt=""
                 className="
                   w-[42px]
@@ -764,7 +764,7 @@ const SellerInbox = ({
 
                   {!isMine && (
                     <img
-                      src={`${backend_url}${userData?.avatar}`}
+                      src={userData?.avatar}
                       className="
                         w-[28px]
                         h-[28px]
@@ -843,7 +843,7 @@ const SellerInbox = ({
                       {item.images?.map((image) => (
                         <img
                           key={image}
-                          src={`${backend_url}${image}`}
+                          src={image}
                           alt="Message attachment"
                           className="
                             mt-2

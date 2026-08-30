@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { backend_url, server } from "../../../server";
+import { server } from "../../../server";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import { TfiGallery } from "react-icons/tfi";
@@ -516,7 +516,7 @@ const MessageList = ({
 
       <div className="relative flex-shrink-0">
         <img
-          src={`${backend_url}${user?.avatar}`}
+          src={user?.avatar}
           alt=""
           className="
             w-[44px]
@@ -688,7 +688,7 @@ const SellerInbox = ({
           <div className="flex items-center min-w-0">
             <div className="relative flex-shrink-0">
               <img
-                src={`${backend_url}${userData?.avatar}`}
+                src={userData?.avatar}
                 alt=""
                 className="
                   w-[40px]
@@ -829,7 +829,7 @@ const SellerInbox = ({
 
                   {!isMine && (
                     <img
-                      src={`${backend_url}${userData?.avatar}`}
+                      src={userData?.avatar}
                       className="
                         w-[28px]
                         h-[28px]
@@ -889,7 +889,7 @@ const SellerInbox = ({
                       {item.images?.map((image) => (
                         <img
                           key={image}
-                          src={`${backend_url}${image}`}
+                          src={image}
                           alt="Message attachment"
                           className="
                             mt-2

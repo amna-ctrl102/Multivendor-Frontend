@@ -1,4 +1,4 @@
-import { backend_url, server } from "../../server";
+import { server } from "../../server";
 import styles from "../../styles/styles";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -95,7 +95,7 @@ const ShopInfo = ({ isOwner }) => {
           {/* ================= AVATAR ================= */}
           <div className="flex justify-center">
             <img
-              src={`${backend_url}${data?.avatar}`}
+              src={data?.avatar || ""}
               alt="sellerImage"
               className="
                 w-[100px]

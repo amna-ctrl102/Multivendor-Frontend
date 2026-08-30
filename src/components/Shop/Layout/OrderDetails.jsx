@@ -15,7 +15,7 @@ import {
   getAllProducts,
   getAllProductsShop,
 } from "../../../redux/actions/product";
-import { backend_url, server } from "../../../server";
+import { server } from "../../../server";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -180,7 +180,7 @@ const OrderDetails = () => {
                 {/* Product Image */}
                 <div className="w-[80px] h-[80px] rounded-lg overflow-hidden bg-white border border-gray-200 flex-shrink-0">
                   <img
-                    src={`${backend_url}${item?.images[0]}`}
+                    src={item?.images[0]}
                     alt={item?.name}
                     className="w-full h-full object-cover"
                   />

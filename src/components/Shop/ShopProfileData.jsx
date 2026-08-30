@@ -5,7 +5,6 @@ import styles from "../../styles/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProductsShop } from "../../redux/actions/product";
 import Ratings from "../Ratings/Ratings";
-import { backend_url } from "../../server";
 import { getAllEventsShop } from "../../redux/actions/event";
 
 const ShopProfileData = ({ isOwner }) => {
@@ -283,7 +282,7 @@ const ShopProfileData = ({ isOwner }) => {
 
                 {/* User Image */}
                 <img
-                  src={`${backend_url}${item?.user?.avatar}`}
+                  src={item?.user?.avatar}
                   className="
                     w-[45px]
                     h-[45px]

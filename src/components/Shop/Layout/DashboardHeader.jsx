@@ -5,7 +5,6 @@ import { FiPackage, FiShoppingBag } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BiMessageSquareDetail } from "react-icons/bi";
-import { backend_url } from "../../../server";
 
 const DashboardHeader = () => {
   const { seller } = useSelector((state) => state.seller);
@@ -74,7 +73,7 @@ const DashboardHeader = () => {
         {/* Seller Profile */}
         <Link to={`/shop/${seller?._id}`}>
           <img
-            src={`${backend_url}${seller?.avatar}`}
+            src={seller?.avatar || ""}
             alt="Seller"
             className="w-[45px] h-[45px] rounded-full object-cover border-2 border-[#077f9c]"
           />

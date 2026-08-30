@@ -92,7 +92,7 @@ const DashboardHero = () => {
       sortable: false,
       filterable: false,
       renderCell: (params) => (
-        <Link to={`/dashboard/order/${params.id}`}>
+        <Link to={`/order/${params.id}`}>
           <Button
             sx={{
               minWidth: "40px",
