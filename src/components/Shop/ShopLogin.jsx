@@ -62,7 +62,7 @@ const ShopLogin = () => {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#077f9c] focus:border-[#077f9c] sm:text-sm"
+                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-md placeholder-gray-400 focus:outline-none focus:ring-[#077f9c] focus:border-[#077f9c] sm:text-sm"
                     />
                     </div>
                 </div>
@@ -81,7 +81,7 @@ const ShopLogin = () => {
                         required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#077f9c] focus:border-[#077f9c] sm:text-sm"
+                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-md placeholder-gray-400 focus:outline-none focus:ring-[#077f9c] focus:border-[#077f9c] sm:text-sm"
                     />
                     {visible ? (
                         <AiOutlineEye

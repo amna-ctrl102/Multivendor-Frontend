@@ -94,7 +94,7 @@ const ShopCreate = () => {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-lg placeholder-gray-400 focus:outline-none focus:ring-[#077f9c] focus:border-[#077f9c] sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-md placeholder-gray-400 focus:outline-none focus:ring-[#077f9c] focus:border-[#077f9c] sm:text-sm"
                   />
                 </div>
               </div>
@@ -112,7 +112,7 @@ const ShopCreate = () => {
                     required
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-lg placeholder-gray-400 focus:outline-none focus:ring-[#077f9c] focus:border-[#077f9c] sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-md placeholder-gray-400 focus:outline-none focus:ring-[#077f9c] focus:border-[#077f9c] sm:text-sm"
                   />
                 </div>
               </div>
@@ -131,7 +131,7 @@ const ShopCreate = () => {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-lg placeholder-gray-400 focus:outline-none focus:ring-[#077f9c] focus:border-[#077f9c] sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-md placeholder-gray-400 focus:outline-none focus:ring-[#077f9c] focus:border-[#077f9c] sm:text-sm"
                   />
                 </div>
               </div>
@@ -150,7 +150,7 @@ const ShopCreate = () => {
                     required
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-lg placeholder-gray-400 focus:outline-none focus:ring-[#077f9c] focus:border-[#077f9c] sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-md placeholder-gray-400 focus:outline-none focus:ring-[#077f9c] focus:border-[#077f9c] sm:text-sm"
                   />
                 </div>
               </div>
@@ -168,7 +168,7 @@ const ShopCreate = () => {
                     required
                     value={zipCode}
                     onChange={(e) => setZipCode(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-lg placeholder-gray-400 focus:outline-none focus:ring-[#077f9c] focus:border-[#077f9c] sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-md placeholder-gray-400 focus:outline-none focus:ring-[#077f9c] focus:border-[#077f9c] sm:text-sm"
                   />
                 </div>
               </div>
@@ -187,7 +187,7 @@ const ShopCreate = () => {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-lg placeholder-gray-400 focus:outline-none focus:ring-[#077f9c] focus:border-[#077f9c] sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-md placeholder-gray-400 focus:outline-none focus:ring-[#077f9c] focus:border-[#077f9c] sm:text-sm"
                   />
                   {visible ? (
                     <AiOutlineEye

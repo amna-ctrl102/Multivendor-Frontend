@@ -82,7 +82,7 @@ const Signup = () => {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-lg placeholder-gray-400 focus:outline-none focus:ring-[#a30563] focus:border-[#a30563] sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-md placeholder-gray-400 focus:outline-none focus:ring-[#a30563] focus:border-[#a30563] sm:text-sm"
                   />
                 </div>
               </div>
@@ -101,7 +101,7 @@ const Signup = () => {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-lg placeholder-gray-400 focus:outline-none focus:ring-[#a30563] focus:border-[#a30563] sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-md placeholder-gray-400 focus:outline-none focus:ring-[#a30563] focus:border-[#a30563] sm:text-sm"
                   />
                 </div>
               </div>
@@ -120,7 +120,7 @@ const Signup = () => {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-lg placeholder-gray-400 focus:outline-none focus:ring-[#a30563] focus:border-[#a30563] sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-md placeholder-gray-400 focus:outline-none focus:ring-[#a30563] focus:border-[#a30563] sm:text-sm"
                   />
                   {visible ? (
                     <AiOutlineEye
@@ -156,7 +156,7 @@ const Signup = () => {
                   </span>
                   <label
                     htmlFor="file-input"
-                    className="ml-5 flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-lg text-sm font-medium text-black hover:text-white bg-white hover:bg-[#a30563]"
+                    className="ml-5 flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-md text-sm font-medium text-black hover:text-white bg-white hover:bg-[#a30563]"
                   >
                     <span>Upload your profile pic</span>
                     <input
