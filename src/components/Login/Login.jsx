@@ -41,7 +41,7 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
+        <h2 className="mt-6 text-center text-3xl font-bold text-[#a30563]">
           Login to your account
         </h2>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -50,7 +50,7 @@ const Login = () => {
                 <div>
                     <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-black"
                     >
                     Email address
                     </label>
@@ -62,14 +62,14 @@ const Login = () => {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-lg placeholder-gray-400 focus:outline-none focus:ring-[#a30563] focus:border-[#a30563] sm:text-sm"
                     />
                     </div>
                 </div>
                 <div>
                     <label
                     htmlFor="password"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-black"
                     >
                     Password
                     </label>
@@ -81,7 +81,7 @@ const Login = () => {
                         required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-lg placeholder-gray-400 focus:outline-none focus:ring-[#a30563] focus:border-[#a30563] sm:text-sm"
                     />
                     {visible ? (
                         <AiOutlineEye
@@ -106,12 +106,12 @@ const Login = () => {
                         id="remember-me"
                         className="h-4 w-4 text-blue-600 focus:ring-blue-500 border border-gray-300 rounded"
                     />
-                    <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                    <label htmlFor="remember-me" className="ml-2 block text-sm text-black">
                         Remember me
                     </label>
                     </div>
                     <div className="text-sm">
-                        <a href="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
+                        <a href="/forgot-password" className="font-medium text-[#a30563] hover:text-[#85004f] transition">
                             Forgot your password?
                         </a>
                     </div>
@@ -120,14 +120,14 @@ const Login = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                        className="w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 transition"
                     >
                         {loading?"Loading...":"Submit"}
                     </button>
                 </div>
                 <div className={`${styles.normalFlex} w-full`}>
                     <h4>Not have any account?</h4>
-                    <Link to="/sign-up" className="text-blue-600 pl-2">
+                    <Link to="/sign-up" className="text-[#a30563] pl-2">
                         Sign Up
                     </Link>
                 </div>
