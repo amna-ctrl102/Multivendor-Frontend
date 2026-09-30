@@ -8,7 +8,7 @@ const FeaturedProduct = () => {
   const { allProducts } = useSelector((state) => state.products);
 
   useEffect(() => {
-    const firstFive = allProducts && allProducts.slice(0, 7);
+    const firstFive = allProducts && allProducts.slice(0, 8);
     setData(firstFive);
   }, [allProducts]);
   return (
